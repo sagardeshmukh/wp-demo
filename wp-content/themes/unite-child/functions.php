@@ -138,4 +138,42 @@ function create_my_taxonomies() {
 }
 
 add_action( 'init', 'create_my_taxonomies', 0 );
+
+/**
+ * Add cafe custom fields
+ */
+function add_film_meta_boxes() {
+    add_meta_box("film_details_meta", "Film Details", "add_film_details_meta_box", "films", "normal", "low");
+}
+function add_film_details_meta_box()
+{
+    global $post;
+    $custom = get_post_custom( $post->ID );
+ 
+    ?>
+    <style>.width99 {width:99%;}</style>
+    <p>
+        <label>Ticket Price:</label><br />
+        <input type="text" name="ticket_price" value="<?= @$custom["ticket_price"][0] ?>" class="width99" />
+    </p>
+    <p>
+        <label>Release Date:</label><br />
+        <input type="text" name="release_date" value="<?= @$custom["release_date"][0] ?>" class="width99" />
+    </p>
+    <?php
+}
+/**
+ * Save custom field data when creating/updating posts
+ */
+function save_film_custom_fields(){
+  global $post;
+ 
+  if ( $post )
+  {
+    update_post_meta($post->ID, "ticket_price", @$_POST["ticket_price"]);
+    update_post_meta($post->ID, "release_date", @$_POST["release_date"]);
+  }
+}
+add_action( 'admin_init', 'add_film_meta_boxes' );
+add_action( 'save_post', 'save_film_custom_fields' );
 ?>
