@@ -74,4 +74,68 @@ function custom_post_type() {
 */
  
 add_action( 'init', 'custom_post_type', 0 );
+
+function create_my_taxonomies() {
+    register_taxonomy(
+        'films_genre',
+        'films',
+        array(
+            'labels' => array(
+                'name' => 'Genre',
+                'add_new_item' => 'Add New Film Genre',
+                'new_item_name' => "New Film Type Genre"
+            ),
+            'show_ui' => true,
+            'show_tagcloud' => false,
+            'hierarchical' => true
+        )
+    );
+
+    register_taxonomy(
+        'films_country',
+        'films',
+        array(
+            'labels' => array(
+                'name' => 'Country',
+                'add_new_item' => 'Add New Country',
+                'new_item_name' => "New Film Type Country"
+            ),
+            'show_ui' => true,
+            'show_tagcloud' => false,
+            'hierarchical' => true
+        )
+    );
+
+    register_taxonomy(
+        'films_year',
+        'films',
+        array(
+            'labels' => array(
+                'name' => 'Year',
+                'add_new_item' => 'Add New Year',
+                'new_item_name' => "New Film Type Year"
+            ),
+            'show_ui' => true,
+            'show_tagcloud' => false,
+            'hierarchical' => true
+        )
+    );
+
+    register_taxonomy(
+        'films_actor',
+        'films',
+        array(
+            'labels' => array(
+                'name' => 'Actor',
+                'add_new_item' => 'Add New Actor',
+                'new_item_name' => "New Film Type Actor"
+            ),
+            'show_ui' => true,
+            'show_tagcloud' => false,
+            'hierarchical' => true
+        )
+    );
+}
+
+add_action( 'init', 'create_my_taxonomies', 0 );
 ?>
